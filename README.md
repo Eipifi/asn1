@@ -7,8 +7,8 @@ For more info, see the proposal on golang-dev: https://groups.google.com/forum/#
 
 ### Usage
 ```
-func Marshal(val interface{}, w io.Writer) error
-func Unmarshal(val interface{}, r io.Reader) error
+func MarshalToWriter(val interface{}, w io.Writer) error
+func UnmarshalFromReader(val interface{}, r io.Reader) error
 ```
 
 ### Installation

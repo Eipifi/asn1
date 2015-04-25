@@ -401,7 +401,9 @@ func marshalTimeCommon(out *forkableWriter, t time.Time) (err error) {
 }
 
 func stripTagAndLength(in []byte) []byte {
-	_, offset, err := parseTagAndLength(in, 0)
+    rr := NewReReaderBytes(in)
+	_, err := parseTagAndLength(rr)
+    offset := len(rr.ReadSoFar())
 	if err != nil {
 		return in
 	}
@@ -643,4 +645,11 @@ func Marshal(val interface{}) ([]byte, error) {
 	}
 	_, err = f.writeTo(&out)
 	return out.Bytes(), nil
+}
+
+func MarshalToWriter(val interface{}, w io.Writer) error {
+	b, err := Marshal(val)
+	if err != nil { return err }
+	_, err = w.Write(b)
+	return err
 }

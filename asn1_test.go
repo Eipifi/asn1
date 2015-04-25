@@ -332,7 +332,7 @@ var tagAndLengthData = []tagAndLengthTest{
 
 func TestParseTagAndLength(t *testing.T) {
 	for i, test := range tagAndLengthData {
-		tagAndLength, _, err := parseTagAndLength(test.in, 0)
+		tagAndLength, err := parseTagAndLength(NewReReaderBytes(test.in))
 		if (err == nil) != test.ok {
 			t.Errorf("#%d: Incorrect error result (did pass? %v, expected: %v)", i, err == nil, test.ok)
 		}
